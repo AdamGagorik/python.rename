@@ -22,7 +22,8 @@ def main(args=None):
 
     # check top level directory
     if not os.path.exists(opts.top) or not os.path.isdir(opts.top):
-        raise RuntimeError('invalid top level directory: %s' % opts.top)
+        logging.error('invalid top level directory: %s' % opts.top)
+        raise SystemExit(1)
 
     # compile regex
     if opts.ignorecase:
@@ -151,7 +152,9 @@ def main(args=None):
 
     # stop if there were errors
     if error:
-        raise RuntimeError('invalid configuration')
+        logging.error('invalid configuration')
+        raise SystemExit(1)
+
 
     # move files
     if opts.force:
